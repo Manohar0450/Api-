@@ -1,0 +1,52 @@
+<div class="container" style="max-width: 600px;">
+  <h2>Employee Registration</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <label>First Name</label>
+    <input class="form-control" formControlName="firstName" />
+    <div *ngIf="f['firstName'].errors" class="alert alert-danger">
+      <p *ngIf="f['firstName'].errors?.['required']">First name is required</p>
+    </div>
+
+    <label>Last Name</label>
+    <input class="form-control" formControlName="lastName" />
+    <div *ngIf="f['lastName'].errors" class="alert alert-danger">
+      <p *ngIf="f['lastName'].errors?.['required']">Last name is required</p>
+    </div>
+
+    <fieldset formGroupName="address">
+      <legend>Address</legend>
+
+      <label>Street</label>
+      <input class="form-control" formControlName="street" />
+
+      <label>Zip</label>
+      <input class="form-control" formControlName="zip" />
+
+      <label>City</label>
+      <input class="form-control" formControlName="city" />
+    </fieldset>
+
+    <label>Email</label>
+    <input class="form-control" formControlName="email" />
+    <div *ngIf="f['email'].errors" class="alert alert-danger">
+      <p *ngIf="f['email'].errors?.['required']">Email is required</p>
+      <p *ngIf="f['email'].errors?.['emailInvalid']">
+        {{ f['email'].errors?.['emailInvalid']?.message }}
+      </p>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+
+  <div *ngIf="submitted" style="margin-top: 20px;">
+    <h3>Entered Details</h3>
+    <p>First Name: {{ f['firstName'].value }}</p>
+    <p>Last Name: {{ f['lastName'].value }}</p>
+    <p>Street: {{ registerForm.get('address.street')?.value }}</p>
+    <p>Zip: {{ registerForm.get('address.zip')?.value }}</p>
+    <p>City: {{ registerForm.get('address.city')?.value }}</p>
+    <p>Email: {{ f['email'].value }}</p>
+  </div>
+</div>
